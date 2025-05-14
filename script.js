@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Animation
             display.style.transform = 'scale(1.1)';
+            display.style.color = '#ff6b6b';
             setTimeout(() => {
                 display.style.transform = 'scale(1)';
+                display.style.color = '#0088cc';
             }, 200);
 
             display.textContent = minutes + ":" + seconds;
@@ -29,69 +31,76 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== TESTIMONIAL SLIDER =====
-    const track = document.querySelector('.testimonial-track');
-    const cards = document.querySelectorAll('.testimonial-card');
+    const testimonials = document.querySelectorAll('.testimonial-card');
     const dotsContainer = document.querySelector('.slider-dots');
     let currentIndex = 0;
     let autoSlideInterval;
 
     // Create dots
-    if (cards.length > 0 && dotsContainer) {
-        const dotCount = Math.ceil(cards.length / 4); // 4 cards visible at once
-        for (let i = 0; i < dotCount; i++) {
+    if (testimonials.length > 0 && dotsContainer) {
+        testimonials.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.classList.add('slider-dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
             dotsContainer.appendChild(dot);
-        }
+        });
     }
 
     function goToSlide(index) {
+        // Hide current testimonial
+        testimonials[currentIndex].classList.remove('active');
+        
+        // Show new testimonial
         currentIndex = index;
-        updateSlider();
-        resetAutoSlide();
-    }
-
-    function updateSlider() {
-        const cardWidth = cards[0].offsetWidth + 20; // width + gap
-        track.style.transform = `translateX(-${currentIndex * cardWidth * 4}px)`;
+        testimonials[currentIndex].classList.add('active');
         
         // Update dots
-        document.querySelectorAll('.slider-dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
+        document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
         });
+        
+        resetAutoSlide();
     }
 
     function resetAutoSlide() {
         clearInterval(autoSlideInterval);
         autoSlideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % Math.ceil(cards.length / 4);
-            updateSlider();
+            const nextIndex = (currentIndex + 1) % testimonials.length;
+            goToSlide(nextIndex);
         }, 5000);
     }
 
     // Initialize slider
-    if (track && cards.length > 0) {
+    if (testimonials.length > 0) {
+        // Show first testimonial
+        testimonials[0].classList.add('active');
         resetAutoSlide();
-        
-        // Pause on hover
-        track.addEventListener('mouseenter', () => {
-            clearInterval(autoSlideInterval);
-        });
-        
-        track.addEventListener('mouseleave', resetAutoSlide);
     }
 
     // ===== JOIN BUTTON ANIMATION =====
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
+        // Pulse animation
+        ctaButton.style.animation = 'pulse 2s infinite';
+        
         ctaButton.addEventListener('mouseenter', () => {
-            ctaButton.style.transform = 'translateY(-3px)';
+            ctaButton.style.transform = 'translateY(-4px) scale(1.05)';
         });
         
         ctaButton.addEventListener('mouseleave', () => {
-            ctaButton.style.transform = 'translateY(0)';
+            ctaButton.style.transform = 'translateY(0) scale(1)';
         });
     }
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 136, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); }
+        }
+    `;
+    document.head.appendChild(style);
 });
