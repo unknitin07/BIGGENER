@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ============== COUNTDOWN TIMER ==============
+    // ===== COUNTDOWN TIMER =====
     function startCountdown(duration, display) {
         let timer = duration, minutes, seconds;
         const interval = setInterval(function() {
@@ -9,33 +9,26 @@ document.addEventListener('DOMContentLoaded', function() {
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            // Animation when time updates
+            // Animation
             display.style.transform = 'scale(1.1)';
-            display.style.color = '#ff6b6b';
             setTimeout(() => {
                 display.style.transform = 'scale(1)';
-                display.style.color = '#0088cc';
             }, 200);
 
             display.textContent = minutes + ":" + seconds;
 
             if (--timer < 0) {
-                // Flash animation when timer resets
-                display.style.animation = 'flash 0.5s 3';
                 timer = duration;
-                setTimeout(() => {
-                    display.style.animation = '';
-                }, 1500);
             }
         }, 1000);
     }
 
     const timerDisplay = document.querySelector('#timer');
     if (timerDisplay) {
-        startCountdown(60 * 5, timerDisplay); // 5 minutes countdown
+        startCountdown(60 * 5, timerDisplay);
     }
 
-    // ============== TESTIMONIAL SLIDER ==============
+    // ===== TESTIMONIAL SLIDER =====
     const track = document.querySelector('.testimonial-track');
     const cards = document.querySelectorAll('.testimonial-card');
     const dotsContainer = document.querySelector('.slider-dots');
@@ -44,13 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Create dots
     if (cards.length > 0 && dotsContainer) {
-        cards.forEach((_, index) => {
+        const dotCount = Math.ceil(cards.length / 4); // 4 cards visible at once
+        for (let i = 0; i < dotCount; i++) {
             const dot = document.createElement('div');
             dot.classList.add('slider-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
-        });
+        }
     }
 
     function goToSlide(index) {
@@ -60,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSlider() {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        const cardWidth = cards[0].offsetWidth + 20; // width + gap
+        track.style.transform = `translateX(-${currentIndex * cardWidth * 4}px)`;
         
         // Update dots
         document.querySelectorAll('.slider-dot').forEach((dot, index) => {
@@ -71,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetAutoSlide() {
         clearInterval(autoSlideInterval);
         autoSlideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % cards.length;
+            currentIndex = (currentIndex + 1) % Math.ceil(cards.length / 4);
             updateSlider();
         }, 5000);
     }
@@ -88,13 +83,15 @@ document.addEventListener('DOMContentLoaded', function() {
         track.addEventListener('mouseleave', resetAutoSlide);
     }
 
-    // Add CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes flash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-    `;
-    document.head.appendChild(style);
+    // ===== JOIN BUTTON ANIMATION =====
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('mouseenter', () => {
+            ctaButton.style.transform = 'translateY(-3px)';
+        });
+        
+        ctaButton.addEventListener('mouseleave', () => {
+            ctaButton.style.transform = 'translateY(0)';
+        });
+    }
 });
