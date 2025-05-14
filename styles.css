@@ -29,7 +29,7 @@ body {
     min-height: 100vh;
 }
 
-/* Main Card (Big) */
+/* Main Card */
 .main-card {
     background-color: var(--card-bg);
     backdrop-filter: var(--blur-effect);
@@ -42,15 +42,15 @@ body {
     text-align: center;
 }
 
-/* Logo Inside Card */
+/* Larger Logo */
 .logo-container {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .logo {
-    height: 80px;
-    width: 100px;
-    filter: drop-shadow(0 0 10px rgba(0, 136, 204, 0.5));
+    height: 120px; /* Increased logo size */
+    width: auto;
+    filter: drop-shadow(0 0 15px rgba(0, 136, 204, 0.7));
 }
 
 /* Hero Section */
@@ -63,7 +63,7 @@ body {
 h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     letter-spacing: -1.5px;
     line-height: 1.1;
 }
@@ -92,11 +92,11 @@ h1 {
 .cta-button {
     background-color: var(--accent);
     color: white;
-    padding: 16px 40px;
+    padding: 18px 45px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-top: 30px;
     display: inline-block;
     transition: all 0.3s ease;
@@ -106,69 +106,72 @@ h1 {
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 136, 204, 0.5);
 }
 
-/* Testimonials (Small Cards) */
+/* Testimonials (Single Slide) */
 .testimonials-container {
-    margin: 40px auto;
+    margin: 50px auto;
     width: 90%;
     max-width: 800px;
+    position: relative;
 }
 
 .testimonial-track {
     display: flex;
     overflow: hidden;
     scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding-bottom: 20px;
 }
 
 .testimonial-card {
     background-color: rgba(30, 30, 30, 0.7);
     backdrop-filter: var(--blur-effect);
-    padding: 20px;
-    border-radius: 12px;
-    min-width: calc(25% - 15px); /* 1/4th width with gap */
+    padding: 40px;
+    border-radius: 16px;
+    min-width: 100%;
     scroll-snap-align: start;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    height: 200px; /* Half height */
-    display: flex;
+    display: none; /* Hide all by default */
     flex-direction: column;
     justify-content: center;
 }
 
+.testimonial-card.active {
+    display: flex; /* Show only active */
+}
+
 .testimonial-card p {
-    font-size: 1rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
     font-style: italic;
-    flex-grow: 1;
+    line-height: 1.7;
 }
 
 .author {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 
 .slider-dots {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    gap: 10px;
+    margin-top: 30px;
+    gap: 12px;
 }
 
 .slider-dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: #333;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .slider-dot.active {
     background-color: var(--accent);
+    transform: scale(1.2);
 }
 
 /* Footer */
@@ -187,26 +190,33 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
     .main-card {
-        padding: 40px 20px;
-        width: 95%;
-    }
-    
-    h1 {
-        font-size: 2.5rem;
+        padding: 50px 30px;
     }
     
     .logo {
-        height: 500px;
+        height: 100px;
+    }
+    
+    h1 {
+        font-size: 2.8rem;
     }
     
     .testimonial-card {
-        min-width: calc(50% - 10px);
-        height: 180px;
+        padding: 30px 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .testimonial-card {
-        min-width: 100%;
+    .logo {
+        height: 80px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .cta-button {
+        padding: 16px 35px;
+        font-size: 1.1rem;
     }
 }
