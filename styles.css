@@ -1,225 +1,176 @@
 :root {
-  --primary: #ffffff; /* White text */
-  --secondary: #000000; /* Black background */
-  --accent: #0088cc; /* Telegram blue */
-  --card-bg: #121212; /* Dark card background */
-  --light-gray: #1e1e1e; /* For borders */
+    --primary: #ffffff;
+    --secondary: #000000;
+    --accent: #0088cc;
+    --card-bg: rgba(30, 30, 30, 0.5); /* 50% opacity */
+    --blur-effect: blur(8px);
 }
 
-/* Base Styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  color: var(--primary);
-  background-color: var(--secondary);
-  min-height: 100vh;
-  line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    color: var(--primary);
+    background-color: var(--secondary);
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Main Card Layout */
-.main-card {
-  background-color: var(--card-bg);
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  margin: 20px auto;
-  max-width: 800px;
-}
-
-/* Header with Logo */
+/* Logo Styles */
 .logo-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
+    text-align: center;
+    padding: 40px 0 20px;
 }
 
 .logo {
-  height: 50px;
-  width: auto;
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 136, 204, 0.5));
 }
 
-.logo-text {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary);
+/* Main Card */
+.main-card {
+    background-color: var(--card-bg);
+    backdrop-filter: var(--blur-effect);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Hero Section */
 .hero {
-  text-align: center;
-  padding: 20px 0 40px;
+    text-align: center;
 }
 
 h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
 }
 
 .highlight {
-  color: var(--accent);
+    color: var(--accent);
 }
 
-.subtitle {
-  font-size: 1.1rem;
-  color: #aaa;
-  margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* CTA Button */
-.cta-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.cta-button {
-  background-color: var(--accent);
-  color: white;
-  padding: 16px 40px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+/* Countdown */
+.countdown-container {
+    margin-top: 30px;
 }
 
 .countdown {
-  font-size: 1.1rem;
-  color: #aaa;
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 #timer {
-  font-weight: 600;
-  color: var(--accent);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.8rem;
 }
 
 /* Testimonials Slider */
 .testimonials-container {
-  margin: 50px auto;
-  max-width: 800px;
-}
-
-.testimonials-title {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-}
-
-.testimonials-slider {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
+    margin: 60px auto;
+    max-width: 800px;
+    position: relative;
 }
 
 .testimonial-track {
-  display: flex;
-  transition: transform 0.5s ease;
+    display: flex;
+    overflow: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .testimonial-card {
-  background-color: var(--card-bg);
-  padding: 30px;
-  border-radius: 12px;
-  min-width: 100%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--light-gray);
+    background-color: rgba(30, 30, 30, 0.7);
+    backdrop-filter: var(--blur-effect);
+    padding: 30px;
+    border-radius: 12px;
+    min-width: 100%;
+    scroll-snap-align: start;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.testimonial-text {
-  font-style: italic;
-  margin-bottom: 20px;
-  color: #ddd;
+.testimonial-card p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-style: italic;
 }
 
-.testimonial-author {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--primary);
+.author {
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
-.testimonial-location {
-  display: block;
-  font-weight: 400;
-  font-size: 0.9rem;
-  color: #aaa;
-  margin-top: 5px;
-}
-
-.slider-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
 }
 
 .slider-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .slider-dot.active {
-  background-color: var(--accent);
+    background-color: var(--accent);
 }
 
 /* Footer */
 footer {
-  text-align: center;
-  padding: 30px 0;
-  color: #666;
-  font-size: 0.8rem;
-  margin-top: 50px;
+    text-align: center;
+    padding: 30px 0;
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: auto;
 }
 
 .hindi-disclaimer {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-  .main-card {
-    padding: 25px;
-    margin: 10px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  .logo {
-    height: 40px;
-  }
-
-  .logo-text {
-    font-size: 1.5rem;
-  }
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .logo {
+        height: 60px;
+    }
+    
+    .main-card {
+        padding: 30px 20px;
+        margin: 0 20px;
+    }
+    
+    #timer {
+        font-size: 1.5rem;
+    }
 }
